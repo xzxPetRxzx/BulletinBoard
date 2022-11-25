@@ -1,0 +1,31 @@
+
+{% extends 'flatpages/default.html' %}
+
+{% block title %}
+Объявление
+{% endblock title %}
+
+{% block content %}
+<h1>Объявление</h1>
+
+    <table>
+        <tr>
+            <td>{{cur_announce.heading}}</td>
+            <td>{{cur_announce.content|safe}}</td>
+        </tr>
+        <tr>
+            <td>{{cur_announce.creation_date|date:'d M Y'}}</td>
+            {% if request.user == cur_announce.author %}
+                    <td>
+                        <a href="{{cur_announce.get_absolute_url}}/edit"<u>Редактировать</u></a>
+                        <a href="{{cur_announce.get_absolute_url}}/delete"<u>Удалить</u></a>
+                    </td>
+            {% else %}
+                    <td><a href="{{cur_announce.get_absolute_url}}/react"<u>Отозваться</u></a></td>
+            {% endif %}
+
+        </tr>
+
+    </table>
+
+{% endblock content %}

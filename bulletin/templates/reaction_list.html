@@ -1,0 +1,68 @@
+
+{% extends 'flatpages/default.html' %}
+
+{% block title %}
+Отклики на мои объявления
+{% endblock title %}
+
+{% block content %}
+
+<form method="GET">
+    {{ filter.form }}
+    <input type="submit" value="Найти">
+</form>
+
+<h1>Мои отклики</h1>
+    {% if reactions %}
+    <table>
+        <tr>
+            <td>Объявление</td>
+            <td>Отклик</td>
+            <td>Дата</td>
+            <td>Действия</td>
+        </tr>
+
+        {% for reaction in filter.qs %}
+            <tr>
+                <td>{{reaction.announce.heading}}</td>
+                <td>{{reaction.content}}</td>
+                <td>{{reaction.creation_date|date:'d M Y'}}</td>
+                {% if reaction.accepted == 1 %}
+                    <td>Принято</td>
+                {% else %}
+                    <td><button> <a href = 'accept/{{ reaction.id }}' >Принять</a> </button></td>
+                    <td><button> <a href = 'delete/{{ reaction.id }}' >Удалить</a> </button></td>
+                </td>
+                {% endif %}
+           </tr>
+        {% endfor %}
+    </table>
+    {% else %}
+       <h2>Еще никто не откликнулся</h2>
+    {% endif %}
+
+    {% if is_paginated %}
+
+
+    {% if page_obj.has_previous %}
+        <a href="?page=1">First</a>
+        <a href="?page={{ page_obj.previous_page_number }}"><<<</a>
+    {% endif %}
+
+
+    {% for num in page_obj.paginator.page_range %}
+        {% if page_obj.number == num %}
+            <a>{{ num }}</a>
+        {% elif num > page_obj.number|add:'-3' and num < page_obj.number|add:'3' %}
+            <a href="?page={{ num }}">{{ num }}</a>
+        {% endif %}
+    {% endfor %}
+
+
+    {% if page_obj.has_next %}
+        <a href="?page={{ page_obj.next_page_number }}">>>></a>
+        <a href="?page={{ page_obj.paginator.num_pages }}">Last</a>
+    {% endif %}
+
+{% endif %}
+{% endblock content %}

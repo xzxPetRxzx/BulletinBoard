@@ -1,0 +1,26 @@
+
+{% extends 'flatpages/default.html' %}
+
+{%load static%}
+
+
+{% block title %}
+Новое объявление
+{% endblock title %}
+
+
+{% block content %}
+
+
+<h1>Добавление объявление</h1>
+
+
+<form method="POST">
+    {% csrf_token %}
+    <!-- {{ form.media }} -->
+    {{ form.media }}
+    {{ form.as_p }}
+
+    <input type="submit" value="Опубликовать">
+</form>
+{% endblock content %}

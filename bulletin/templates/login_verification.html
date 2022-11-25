@@ -1,0 +1,17 @@
+
+{% extends 'flatpages/default.html' %}
+
+{% block title %}
+Подтвердите вход кодом из Email
+{% endblock title %}
+
+{% block content %}
+
+<h1> Подтвердите вход кодом из Email </h1>
+    <form method="post">
+        {% csrf_token %}
+        {{form.as_p}}
+        <input type="submit" value="Войти" />
+    </form>
+
+{% endblock content %}

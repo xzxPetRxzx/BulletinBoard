@@ -1,0 +1,36 @@
+
+{% extends 'flatpages/default.html' %}
+
+
+{% block title %}
+Удаление объявления
+{% endblock title %}
+
+{% block content %}
+
+
+<h1>Вы действительно хотите удалить объявление?</h1>
+ <table>
+
+    <tr>
+        <td>
+            {{ announce.heading }}
+        </td>
+    </tr>
+    <tr>
+        <td>
+            {{ announce.content|safe}}
+        </td>
+    </tr>
+    <tr>
+        <td>
+            {{ announce.creation_date|date:'d M Y' }}
+        </td>
+    </tr>
+
+</table>
+
+<form method="POST">
+    {% csrf_token %}
+    <input type="submit" value="подтвердить"></form>
+{% endblock content %}
